@@ -45,7 +45,7 @@ export const injectPartNameToPage = async (context:Window) => {
     const apidata = await getAidAPI(aid)
     infos = apidata.data
   } else {
-    infos = context.vd || (await getAPI(context.bvid)).data;
+    infos = context.vd || (await getAPI(context.bvid)).data
   }
   infos.p = getUrlParam('p') || getPageFromCid(context.cid, infos)
   console.log('showid','infos ready',infos)
