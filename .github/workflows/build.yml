@@ -44,8 +44,8 @@ jobs:
     - name: Git commit
       id: commit
       run: |
-        git config --local user.email "the1812@outlook.com"
-        git config --local user.name "the1812"
+        git config --local user.email "canszj@yeah.net"
+        git config --local user.name "CKylinMC"
         git config --global core.autocrlf true
         git config --global core.safecrlf false
         git commit -m "CI build" -a
