@@ -19,7 +19,7 @@ const getOrNew = (id:string, parent:HTMLElement) => {
 
 /**
  * 等待视频页面的 aid, 如果是合集类页面, 会从 player API 中获取 aid 并赋值到 window 上
- * 
+ *
  * 复制自core中的一个废弃方法
  * @see `core/utils/index.ts` #L292-309
  */
@@ -68,9 +68,9 @@ export const injectPartNameToPage = async (context:Window) => {
     const apidata = await getAidAPI(aid)
     infos = apidata.data
   } else {
-    infos = context.vd || (await getAidAPI(await aidReady())).data;
+    infos = context.vd || (await getAidAPI(await aidReady())).data
   }
-  console.log("showid debug",context,context.vd,infos,(await getAPI(context.bvid)).data,(await getAidAPI(await aidReady())).data)
+  console.log('showid debug', context, context.vd, infos, (await getAPI(context.bvid)).data, (await getAidAPI(await aidReady())).data)
   infos.p = getUrlParam('p') || getPageFromCid(context.cid, infos)
 
   const av_infobar = await select('.video-data')
