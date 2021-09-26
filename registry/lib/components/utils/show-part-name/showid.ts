@@ -52,7 +52,7 @@ export const injectPartNameToPage = async (context:Window) => {
 
   const av_infobar = await select('.video-data')
   if (!av_infobar) { return }
-  const av_root = getOrNew(name, av_infobar as HTMLElement);
+  const av_root = getOrNew(name, av_infobar as HTMLElement) as HTMLElement;
   console.log('showid','dom ready',av_root)
   let part: { part: string | any[] }
   try {
