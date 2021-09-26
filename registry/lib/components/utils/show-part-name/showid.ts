@@ -1,6 +1,7 @@
 // Ported from ckylin-bilibili-display-video-id
 
 import { select } from '@/core/spin-query'
+import { playerReady } from '@/core/utils'
 import { registerAndGetData } from '@/plugins/data'
 
 const getAPI = (bvid:string) => fetch(`https://api.bilibili.com/x/web-interface/view?bvid=${bvid}`).then(raw => raw.json())
@@ -14,6 +15,28 @@ const getOrNew = (id:string, parent:HTMLElement) => {
     parent.appendChild(target)
   }
   return target
+}
+
+/**
+ * 等待视频页面的 aid, 如果是合集类页面, 会从 player API 中获取 aid 并赋值到 window 上
+ * 
+ * 复制自core中的一个废弃方法
+ * @see `core/utils/index.ts` #L292-309
+ */
+const aidReady = async () => {
+  if (unsafeWindow.aid) {
+    return unsafeWindow.aid
+  }
+  const { sq } = await import('@/core/spin-query')
+  const info = await sq(
+    () => unsafeWindow?.player?.getVideoMessage?.() as { aid?: string },
+    it => it?.aid !== undefined,
+  )
+  if (!info) {
+    return null
+  }
+  unsafeWindow.aid = info.aid.toString()
+  return info.aid as string
 }
 
 const getPageFromCid = (cid, infos) => {
@@ -30,13 +53,14 @@ const defaultConfig = {
   showInNewLine: false,
 }
 
-export const injectPartNameToPage = async () => {
+export const injectPartNameToPage = async (context:Window) => {
   if (document.querySelector('#bilibiliShowInfos')) { return }
-  let infos; const
-    [config] = registerAndGetData('showPartName', defaultConfig)
+  await playerReady()
+  let infos
+  const [config] = registerAndGetData('showPartName', defaultConfig)
   const name = 'bilibiliShowPN-be'
   if (location.pathname.startsWith('/medialist')) {
-    let { aid } = unsafeWindow
+    let { aid } = context
     if (!aid) {
       const activeVideo = await select('.player-auxiliary-playlist-item-active')
       aid = activeVideo.getAttribute('data-aid')
@@ -44,10 +68,10 @@ export const injectPartNameToPage = async () => {
     const apidata = await getAidAPI(aid)
     infos = apidata.data
   } else {
-    infos = unsafeWindow.vd || (await getAPI(unsafeWindow.bvid)).data;
+    infos = context.vd || (await getAidAPI(await aidReady())).data;
   }
-  console.log(unsafeWindow,unsafeWindow.vd,infos,(await getAPI(unsafeWindow.bvid)).data)
-  infos.p = getUrlParam('p') || getPageFromCid(unsafeWindow.cid, infos)
+  console.log("showid debug",context,context.vd,infos,(await getAPI(context.bvid)).data,(await getAidAPI(await aidReady())).data)
+  infos.p = getUrlParam('p') || getPageFromCid(context.cid, infos)
 
   const av_infobar = await select('.video-data')
   if (!av_infobar) { return }

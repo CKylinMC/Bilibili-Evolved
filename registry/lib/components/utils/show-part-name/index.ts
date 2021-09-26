@@ -9,7 +9,7 @@ const name = 'showPartName'
 const entry = () => {
   addStyle(style, name)
   videoChange(async () => {
-    injectPartNameToPage()
+    injectPartNameToPage(unsafeWindow)
   })
 }
 export const component: ComponentMetadata = {
