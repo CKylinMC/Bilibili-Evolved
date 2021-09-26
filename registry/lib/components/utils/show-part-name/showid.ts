@@ -29,7 +29,7 @@ const getPageFromCid = (cid, infos) => {
 export const injectPartNameToPage = async (context:Window) => {
   if (document.querySelector('#bilibiliShowInfos')) { return }
   await playerReady()
-  console.log('showid','player ready')
+  console.log('showid', 'player ready')
   let infos
   const name = 'bilibiliShowPN-be'
   if (location.pathname.startsWith('/medialist')) {
@@ -44,21 +44,22 @@ export const injectPartNameToPage = async (context:Window) => {
     infos = context.vd || (await getAPI(context.bvid)).data
   }
   infos.p = getUrlParam('p') || getPageFromCid(context.cid, infos)
-  console.log('showid','infos ready',infos)
+  console.log('showid', 'infos ready', infos)
 
   const av_infobar = await select('.video-data')
   if (!av_infobar) { return }
-  const av_root = getOrNew(name, av_infobar as HTMLElement) as HTMLElement;
-  console.log('showid','dom ready',av_root)
+  const av_root = getOrNew(name, av_infobar as HTMLElement) as HTMLElement
+  console.log('showid', 'dom ready', av_root)
   let part: { part: string | any[] }
   try {
     part = infos.pages[infos.p - 1]
   } catch (e) {
     part = infos.pages[0]
   }
-  console.log('showid','partinfo ready',part)
+  console.log('showid', 'partinfo ready', part)
   const currentPageName = part.part.length ? part.part : ''
-  let currentPageNum, delimiters
+  let currentPageNum; let
+    delimiters
   if (infos.videos !== 1) {
     currentPageNum = `P ${infos.p}/${infos.videos}`
     delimiters = ['\n', ' ']
@@ -68,5 +69,5 @@ export const injectPartNameToPage = async (context:Window) => {
   }
   av_root.title = currentPageNum + delimiters[0] + currentPageName
   av_root.innerText = currentPageNum + delimiters[1] + currentPageName
-  console.log('showid','content ready',av_root.innerText)
+  console.log('showid', 'content ready', av_root.innerText)
 }
