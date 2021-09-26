@@ -3,7 +3,7 @@
 import { select } from '@/core/spin-query'
 import { registerAndGetData } from '@/plugins/data'
 
-const getAPI = (bvid:string) => fetch(`https://api.bilibili.com/x/web-interface/view?bvid=${bvid}`).then(raw => raw.json())
+//const getAPI = (bvid:string) => fetch(`https://api.bilibili.com/x/web-interface/view?bvid=${bvid}`).then(raw => raw.json())
 const getAidAPI = (aid:string) => fetch(`https://api.bilibili.com/x/web-interface/view?aid=${aid}`).then(raw => raw.json())
 const getUrlParam = (key:string) => (new URL(location.href)).searchParams.get(key)
 const getOrNew = (id:string, parent:HTMLElement) => {
