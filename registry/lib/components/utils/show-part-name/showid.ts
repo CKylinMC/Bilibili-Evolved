@@ -17,28 +17,6 @@ const getOrNew = (id:string, parent:HTMLElement) => {
   return target
 }
 
-/**
- * 等待视频页面的 aid, 如果是合集类页面, 会从 player API 中获取 aid 并赋值到 window 上
- * 
- * 复制自core中的一个废弃方法
- * @see `core/utils/index.ts` #L292-309
- */
-const aidReady = async () => {
-  if (unsafeWindow.aid) {
-    return unsafeWindow.aid
-  }
-  const { sq } = await import('@/core/spin-query')
-  const info = await sq(
-    () => unsafeWindow?.player?.getVideoMessage?.() as { aid?: string },
-    it => it?.aid !== undefined,
-  )
-  if (!info) {
-    return null
-  }
-  unsafeWindow.aid = info.aid.toString()
-  return info.aid as string
-}
-
 const getPageFromCid = (cid, infos) => {
   if (!cid || !infos || !infos.pages) { return 1 }
   if (infos.pages.length === 1) { return 1 }
@@ -68,9 +46,8 @@ export const injectPartNameToPage = async (context:Window) => {
     const apidata = await getAidAPI(aid)
     infos = apidata.data
   } else {
-    infos = context.vd || (await getAidAPI(await aidReady())).data;
+    infos = context.vd || (await getAPI(context.bvid)).data;
   }
-  console.log("showid debug",context,context.vd,infos,(await getAPI(context.bvid)).data,(await getAidAPI(await aidReady())).data)
   infos.p = getUrlParam('p') || getPageFromCid(context.cid, infos)
 
   const av_infobar = await select('.video-data')
