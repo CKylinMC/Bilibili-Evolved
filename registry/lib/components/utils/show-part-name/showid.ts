@@ -33,7 +33,7 @@ export const registerVideoChangeHandler = async (context:Window) => {
     if (!video) return;
     unregisterVideoChangeHandler(context);
     const observer = new MutationObserver(async e => {
-        if (e[0].target.src) {
+        if ((e[0].target as HTMLVideoElement).src) {
             injectPartNameToPage(context);
         }
     });
