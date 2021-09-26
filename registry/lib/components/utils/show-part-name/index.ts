@@ -1,5 +1,5 @@
 import { ComponentMetadata } from '@/components/types'
-import { addStyle,removeStyle } from '@/core/style'
+import { addStyle, removeStyle } from '@/core/style'
 import { videoUrls } from '@/core/utils/urls'
 import { videoChange } from '@/core/observer'
 import style from './showid.scss'
@@ -7,9 +7,9 @@ import { injectPartNameToPage } from './showid'
 
 const name = 'showPartName'
 const entry = () => {
-  addStyle(style, name);
+  addStyle(style, name)
   videoChange(async () => {
-    injectPartNameToPage();
+    injectPartNameToPage()
   })
 }
 export const component: ComponentMetadata = {
