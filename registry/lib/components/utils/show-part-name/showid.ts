@@ -44,9 +44,10 @@ export const injectPartNameToPage = async () => {
     const apidata = await getAidAPI(aid)
     infos = apidata.data
   } else {
-    infos = (await getAPI(unsafeWindow.bvid)).data
+    //infos = (await getAPI(window.bvid)).data
+    infos = window.vd;
   }
-  infos.p = getUrlParam('p') || getPageFromCid(unsafeWindow.cid, infos)
+  infos.p = getUrlParam('p') || getPageFromCid(window.cid, infos)
 
   const av_infobar = await select('.video-data')
   if (!av_infobar) { return }
