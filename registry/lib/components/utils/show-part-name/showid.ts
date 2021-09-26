@@ -26,10 +26,6 @@ const getPageFromCid = (cid, infos) => {
   return 1
 }
 
-const defaultConfig = {
-  showInNewLine: false,
-}
-
 export const injectPartNameToPage = async (context:Window) => {
   if (document.querySelector('#bilibiliShowInfos')) { return }
   await playerReady()
