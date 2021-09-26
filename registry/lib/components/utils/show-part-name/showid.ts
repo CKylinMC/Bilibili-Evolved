@@ -11,7 +11,6 @@ const getOrNew = (id:string, parent:HTMLElement) => {
     if (!target) {
         target = document.createElement("span");
         target.id = id;
-        target.style.marginLeft = "16px";
         parent.appendChild(target);
     }
     return target;
