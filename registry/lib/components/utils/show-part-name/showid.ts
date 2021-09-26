@@ -2,7 +2,6 @@
 
 import { select } from '@/core/spin-query'
 import { playerReady } from '@/core/utils'
-import { registerAndGetData } from '@/plugins/data'
 
 const getAPI = (bvid:string) => fetch(`https://api.bilibili.com/x/web-interface/view?bvid=${bvid}`).then(raw => raw.json())
 const getAidAPI = (aid:string) => fetch(`https://api.bilibili.com/x/web-interface/view?aid=${aid}`).then(raw => raw.json())
@@ -34,8 +33,8 @@ const defaultConfig = {
 export const injectPartNameToPage = async (context:Window) => {
   if (document.querySelector('#bilibiliShowInfos')) { return }
   await playerReady()
+  console.log('showid','player ready')
   let infos
-  const [config] = registerAndGetData('showPartName', defaultConfig)
   const name = 'bilibiliShowPN-be'
   if (location.pathname.startsWith('/medialist')) {
     let { aid } = context
@@ -49,30 +48,21 @@ export const injectPartNameToPage = async (context:Window) => {
     infos = context.vd || (await getAPI(context.bvid)).data;
   }
   infos.p = getUrlParam('p') || getPageFromCid(context.cid, infos)
+  console.log('showid','infos ready',infos)
 
   const av_infobar = await select('.video-data')
   if (!av_infobar) { return }
-  let av_root
-  if (config.showInNewLine) {
-    av_root = getOrNew(name, av_infobar.parentElement)
-  } else {
-    let rootel = document.querySelector(`#${name}`)
-    if (!rootel) {
-      rootel = document.createElement('span')
-      rootel.id = name
-      av_infobar.appendChild(rootel)
-    }
-    av_root = rootel
-  }
-  let part
+  const av_root = getOrNew(name, av_infobar as HTMLElement);
+  console.log('showid','dom ready',av_root)
+  let part: { part: string | any[] }
   try {
     part = infos.pages[infos.p - 1]
   } catch (e) {
     part = infos.pages[0]
   }
-  const currentPageName = part.part.length ? `${part.part}` : ''
-  let currentPageNum
-  let delimiters
+  console.log('showid','partinfo ready',part)
+  const currentPageName = part.part.length ? part.part : ''
+  let currentPageNum, delimiters
   if (infos.videos !== 1) {
     currentPageNum = `P ${infos.p}/${infos.videos}`
     delimiters = ['\n', ' ']
@@ -82,4 +72,5 @@ export const injectPartNameToPage = async (context:Window) => {
   }
   av_root.title = currentPageNum + delimiters[0] + currentPageName
   av_root.innerText = currentPageNum + delimiters[1] + currentPageName
+  console.log('showid','content ready',av_root.innerText)
 }
