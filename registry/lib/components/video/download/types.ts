@@ -69,6 +69,11 @@ export interface DownloadVideoApi extends WithName {
   downloadVideoInfo: (input: DownloadVideoInputItem) => Promise<DownloadVideoInfo>
   description?: string
 }
+/** 表示某种类型的下载音频 API */
+export interface DownloadAudioApi extends WithName {
+  downloadVideoInfo: (input: DownloadVideoInputItem) => Promise<DownloadVideoInfo>
+  description?: string
+}
 /** 表示下载时额外附带的产物, 如弹幕 / 字幕等 */
 export interface DownloadVideoAssets<AssetsParameter = any> extends VueInstanceInput, WithName {
   getAssets: (infos: DownloadVideoInfo[], instance: AssetsParameter) => Promise<PackageEntry[]>

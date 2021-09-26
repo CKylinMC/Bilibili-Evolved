@@ -7,7 +7,7 @@
     <div class="download-video-panel-header">
       <VIcon icon="mdi-download" />
       <div class="title">
-        下载视频
+        下载视频和音频
       </div>
       <VButton type="transparent" title="关闭" @click="open = false">
         <VIcon icon="mdi-close" :size="20" />
@@ -139,12 +139,13 @@ import { Toast } from '@/core/toast'
 import { bangumiBatchInput } from './inputs/bangumi/batch'
 import { videoBatchInput } from './inputs/video/batch'
 import { videoSingleInput } from './inputs/video/input'
-import { videoDashAVC, videoDashHEVC } from './apis/dash'
+import { audioDashAVC, videoDashAVC, videoDashHEVC } from './apis/dash'
 import { videoFlv } from './apis/flv'
 import { toastOutput } from './outputs/toast'
 import {
   DownloadVideoAction,
   DownloadVideoApi,
+  DownloadAudioApi,
   DownloadVideoAssets,
   DownloadVideoInput,
   DownloadVideoInputItem,
@@ -163,6 +164,7 @@ const [apis] = registerAndGetData(
     videoFlv,
     videoDashAVC,
     videoDashHEVC,
+    audioDashAVC
   ] as DownloadVideoApi[],
 )
 const [assets] = registerAndGetData(

@@ -2,8 +2,8 @@ import { ComponentMetadata } from '@/components/types'
 import { hasVideo } from '@/core/spin-query'
 
 export const component: ComponentMetadata = {
-  name: 'downloadVideo',
-  displayName: '下载视频',
+  name: 'downloadVideoAndAudio',
+  displayName: '下载视频和音频',
   entry: none,
   reload: none,
   unload: none,

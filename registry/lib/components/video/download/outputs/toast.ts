@@ -10,7 +10,7 @@ export const toastOutput: DownloadVideoOutput = {
     const urls = fragments.map(f => f.url).join('\n')
     Toast.show(
       fragments.map(f => `<a class="link" href="${f.url}" download="${f.title}">${f.title}</a>`).join('\n'),
-      '下载视频',
+      '点击手动下载',
     )
     console.log(urls)
     console.log(action)

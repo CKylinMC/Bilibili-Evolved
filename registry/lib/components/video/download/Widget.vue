@@ -2,7 +2,7 @@
   <div class="multiple-widgets">
     <DefaultWidget
       ref="button"
-      name="下载视频"
+      name="下载视频和音频"
       icon="mdi-download"
       @mouseover="createDownloadPanel()"
       @click="toggleDownloadPanel()"
