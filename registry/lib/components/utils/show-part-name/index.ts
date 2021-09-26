@@ -19,7 +19,7 @@ export const component: ComponentMetadata = {
   unload: () => {
     removeStyle(name)
   },
-  displayName: '显示分P名',
+  displayName: '显示视频分P名',
   tags: [
     componentsTags.video,
     componentsTags.utils,
