@@ -77,7 +77,8 @@ export const injectPartNameToPage = async (context:Window) => {
     part = infos.pages[0]
   }
   const currentPageName = part.part.length ? part.part : ''
-  let currentPageNum, delimiters
+  let currentPageNum; let
+    delimiters
   if (infos.videos !== 1) {
     currentPageNum = `P ${infos.p}/${infos.videos}`
     delimiters = ['\n', ' ']
