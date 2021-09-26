@@ -36,7 +36,7 @@ export const injectPartNameToPage = async () => {
     [config] = registerAndGetData('showPartName', defaultConfig)
   const name = 'bilibiliShowPN-be'
   if (location.pathname.startsWith('/medialist')) {
-    let { aid } = window
+    let { aid } = unsafeWindow
     if (!aid) {
       const activeVideo = await select('.player-auxiliary-playlist-item-active')
       aid = activeVideo.getAttribute('data-aid')
@@ -44,10 +44,10 @@ export const injectPartNameToPage = async () => {
     const apidata = await getAidAPI(aid)
     infos = apidata.data
   } else {
-    infos = window.vd || (await getAPI(window.bvid)).data;
+    infos = unsafeWindow.vd || (await getAPI(unsafeWindow.bvid)).data;
   }
-  console.log(window,window.vd,infos,(await getAPI(window.bvid)).data)
-  infos.p = getUrlParam('p') || getPageFromCid(window.cid, infos)
+  console.log(unsafeWindow,unsafeWindow.vd,infos,(await getAPI(unsafeWindow.bvid)).data)
+  infos.p = getUrlParam('p') || getPageFromCid(unsafeWindow.cid, infos)
 
   const av_infobar = await select('.video-data')
   if (!av_infobar) { return }
