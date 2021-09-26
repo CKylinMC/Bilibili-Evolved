@@ -18,10 +18,10 @@ const getOrNew = (id:string, parent:HTMLElement) => {
 
 const getPageFromCid = (cid, infos) => {
     if (!cid || !infos || !infos.pages) return 1;
-    if (infos.pages.length == 1) return 1;
+    if (infos.pages.length === 1) return 1;
     for (let page of infos.pages) {
         if (!page) continue;
-        if (page.cid == cid) return page.page;
+        if (page.cid === cid) return page.page;
     }
     return 1;
 }
@@ -70,7 +70,7 @@ export const injectPartNameToPage = async ()=>{
     let currentPageName = part.part.length ? `${part.part}` : '';
     let currentPageNum;
     let delimiters;
-    if (infos.videos != 1) {
+    if (infos.videos !== 1) {
         currentPageNum = `P ${infos.p}/${infos.videos}`;
         delimiters = ["\n", " "];
     } else {
