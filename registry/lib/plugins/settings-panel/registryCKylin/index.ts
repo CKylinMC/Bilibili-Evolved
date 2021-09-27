@@ -1,7 +1,7 @@
 import { monkey } from '@/core/ajax'
 import { cdnRoots } from '@/core/cdn-types'
 import { meta } from '@/core/meta'
-import { getGeneralSettings,settings } from '@/core/settings'
+import { getGeneralSettings, settings } from '@/core/settings'
 import { logError } from '@/core/utils/log'
 import { PluginMetadata } from '@/plugins/plugin'
 import { getDescriptionHTML } from '@/components/description'
@@ -13,8 +13,8 @@ export const plugin: PluginMetadata = {
   name: 'onlineRegistry.thirdPartyRepos.CKylinMC',
   displayName: '在线仓库 - CKylinMC仓库源',
   setup: () => {
-    const originalOnlineRegistry = (Vue as any).options.components["OnlineRegistry"];
-    const thirdPartyRepoFullPath = 'https://raw.githubusercontent.com/CKylinMC/Bilibili-Evolved/v2/doc/features/thirdparty/custom.json';
+    const originalOnlineRegistry = (Vue as any).options.components.OnlineRegistry
+    const thirdPartyRepoFullPath = 'https://raw.githubusercontent.com/CKylinMC/Bilibili-Evolved/v2/doc/features/thirdparty/custom.json'
     const extendedOnlineRegistry = originalOnlineRegistry.extend({
       methods: {
         async fetchFeatures() {
@@ -56,9 +56,9 @@ export const plugin: PluginMetadata = {
       rootPath?:string
     };
     const getFeatureUrl = (item: ExtendedDocSourceItem) => {
-      if(Object.keys(item).includes("thirdParty")){
-        return `${item.rootPath}${item.fullAbsolutePath}`;
-      }else return `${cdnRoots[getGeneralSettings().cdnRoot](meta.compilationInfo.branch, item.owner)}${item.fullAbsolutePath}`
+      if (Object.keys(item).includes('thirdParty')) {
+        return `${item.rootPath}${item.fullAbsolutePath}`
+      } return `${cdnRoots[getGeneralSettings().cdnRoot](meta.compilationInfo.branch, item.owner)}${item.fullAbsolutePath}`
     }
     const isFeatureInstalled = (item: DocSourceItem) => {
       const storageKey = `user${lodash.startCase(item.type)}s`
@@ -91,8 +91,8 @@ export const plugin: PluginMetadata = {
         isInstalled: (pack: PackItem) => pack.items.every(isFeatureInstalled),
       },
     }
-    Vue.component('OnlineRegistry',extendedOnlineRegistry);
-    const originalRegistryItem = (Vue as any).options.components["RegistryItem"];
+    Vue.component('OnlineRegistry', extendedOnlineRegistry)
+    const originalRegistryItem = (Vue as any).options.components.RegistryItem
     const extendedRegistryItem = originalRegistryItem.extend({
       data() {
         return {
@@ -105,6 +105,6 @@ export const plugin: PluginMetadata = {
         }
       },
     })
-    Vue.component('RegistryItem',extendedRegistryItem);
+    Vue.component('RegistryItem', extendedRegistryItem)
   },
 }

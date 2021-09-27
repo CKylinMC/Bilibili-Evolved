@@ -3,7 +3,7 @@
 import { select } from '@/core/spin-query'
 import { playerReady } from '@/core/utils'
 
-let ob;
+let ob
 
 const getAPI = (bvid:string) => fetch(`https://api.bilibili.com/x/web-interface/view?bvid=${bvid}`).then(raw => raw.json())
 const getAidAPI = (aid:string) => fetch(`https://api.bilibili.com/x/web-interface/view?aid=${aid}`).then(raw => raw.json())
@@ -28,8 +28,8 @@ const getPageFromCid = (cid, infos) => {
   return 1
 }
 
-export const uninject = ()=>{
-    select("#bilibiliShowPN-be").then(e=>e.remove())
+export const uninject = () => {
+  select('#bilibiliShowPN-be').then(e => e.remove())
 }
 
 export const injectPartNameToPage = async (context:Window) => {
@@ -52,7 +52,7 @@ export const injectPartNameToPage = async (context:Window) => {
 
   const av_infobar = await select('.video-data')
   if (!av_infobar) { return }
-  const av_root = getOrNew(name, av_infobar as HTMLElement) as HTMLElement;
+  const av_root = getOrNew(name, av_infobar as HTMLElement) as HTMLElement
   let part: { part: string | any[] }
   try {
     part = infos.pages[infos.p - 1]
@@ -74,18 +74,18 @@ export const injectPartNameToPage = async (context:Window) => {
 }
 
 export const unregisterVideoChangeHandler = async () => {
-    ob && ob.disconnect();
+  ob && ob.disconnect()
 }
 
 export const registerVideoChangeHandler = async (context:Window) => {
-    const video = await select(".bilibili-player-video video");
-    if (!video) return;
-    unregisterVideoChangeHandler();
-    const observer = new MutationObserver(async e => {
-        if ((e[0].target as HTMLVideoElement).src) {
-            injectPartNameToPage(context);
-        }
-    });
-    observer.observe(video, { attributes: true, childList: false });
-    ob = observer;
+  const video = await select('.bilibili-player-video video')
+  if (!video) { return }
+  unregisterVideoChangeHandler()
+  const observer = new MutationObserver(async e => {
+    if ((e[0].target as HTMLVideoElement).src) {
+      injectPartNameToPage(context)
+    }
+  })
+  observer.observe(video, { attributes: true, childList: false })
+  ob = observer
 }
