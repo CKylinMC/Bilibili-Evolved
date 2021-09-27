@@ -12,7 +12,7 @@ import Vue from 'vue'
 export const plugin: PluginMetadata = {
   name: 'onlineRegistry.thirdPartyRepos.CKylinMC',
   displayName: '在线仓库 - CKylinMC仓库源',
-  setup: ({ addData, addHook }) => {
+  setup: () => {
     const originalOnlineRegistry = (Vue as any).options.components["OnlineRegistry"];
     const thirdPartyRepoFullPath = 'https://raw.githubusercontent.com/CKylinMC/Bilibili-Evolved/v2/doc/features/thirdparty/custom.json';
     const extendedOnlineRegistry = originalOnlineRegistry.extend({

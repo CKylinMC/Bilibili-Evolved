@@ -17,8 +17,8 @@ export const component: ComponentMetadata = {
   entry,
   reload: entry,
   unload: () => {
-    unregisterVideoChangeHandler(unsafeWindow)
-    uninject(unsafeWindow)
+    unregisterVideoChangeHandler()
+    uninject()
     removeStyle(name)
 
   },

@@ -4,7 +4,7 @@ import { ascendingSort, descendingSort } from '@/core/utils/sort'
 import { allQualities, VideoQuality } from '@/components/video/video-quality'
 import { compareQuality } from '../error'
 import {
-  DownloadAudioApi,
+  // DownloadAudioApi,
   DownloadVideoApi, DownloadVideoFragment, DownloadVideoInfo, DownloadVideoInputItem,
 } from '../types'
 
@@ -151,9 +151,9 @@ export const videoDashHEVC: DownloadVideoApi = {
   description: '音画分离的 mp4 格式, 编码为H.265, 体积较小, 兼容性较差. 下载后可以合并为单个 mp4 文件.',
   downloadVideoInfo: async input => downloadDash(input, 'HEVC/H.265'),
 }
-export const audioDashAVC: DownloadAudioApi = {
-  name: 'audio.dash.avc',
-  displayName: 'dash (仅音频)',
-  description: '从DASH AVC/H.264格式中分离的仅音频下载功能，适合只需要音频的情况。',
-  downloadVideoInfo: async input => downloadDash(input, 'AVC/H.264@AUDIO'),
-}
+// export const audioDashAVC: DownloadAudioApi = {
+//   name: 'audio.dash.avc',
+//   displayName: 'dash (仅音频)',
+//   description: '从DASH AVC/H.264格式中分离的仅音频下载功能，适合只需要音频的情况。',
+//   downloadVideoInfo: async input => downloadDash(input, 'AVC/H.264@AUDIO'),
+// }

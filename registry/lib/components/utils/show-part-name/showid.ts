@@ -28,24 +28,7 @@ const getPageFromCid = (cid, infos) => {
   return 1
 }
 
-export const registerVideoChangeHandler = async (context:Window) => {
-    const video = await select(".bilibili-player-video video");
-    if (!video) return;
-    unregisterVideoChangeHandler(context);
-    const observer = new MutationObserver(async e => {
-        if ((e[0].target as HTMLVideoElement).src) {
-            injectPartNameToPage(context);
-        }
-    });
-    observer.observe(video, { attributes: true, childList: false });
-    ob = observer;
-}
-
-export const unregisterVideoChangeHandler = async (context:Window) => {
-    ob && ob.disconnect();
-}
-
-export const uninject = (context:Window)=>{
+export const uninject = ()=>{
     select("#bilibiliShowPN-be").then(e=>e.remove())
 }
 
@@ -88,4 +71,21 @@ export const injectPartNameToPage = async (context:Window) => {
   }
   av_root.title = currentPageNum + delimiters[0] + currentPageName
   av_root.innerText = currentPageNum + delimiters[1] + currentPageName
+}
+
+export const unregisterVideoChangeHandler = async () => {
+    ob && ob.disconnect();
+}
+
+export const registerVideoChangeHandler = async (context:Window) => {
+    const video = await select(".bilibili-player-video video");
+    if (!video) return;
+    unregisterVideoChangeHandler();
+    const observer = new MutationObserver(async e => {
+        if ((e[0].target as HTMLVideoElement).src) {
+            injectPartNameToPage(context);
+        }
+    });
+    observer.observe(video, { attributes: true, childList: false });
+    ob = observer;
 }
