@@ -1,0 +1,12 @@
+[
+    {
+      "type": "component",
+      "name": "showPartName",
+      "thirdParty": true,
+      "rootPath": "https://raw.githubusercontent.com/CKylinMC/Bilibili-Evolved/v2/",
+      "displayName": "显示分P名称",
+      "description": "开启后可以在视频页面信息栏显示分P标题.",
+      "fullRelativePath": "../../registry/dist/components/utils/show-part-name.js",
+      "fullAbsolutePath": "registry/dist/components/utils/show-part-name.js"
+    }
+  ]
